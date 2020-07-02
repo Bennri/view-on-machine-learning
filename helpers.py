@@ -1,12 +1,13 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-def create_random_2d_dataset_2classes(mu_1=1.0, sigma_1=2.0, mu_2=4.0, sigma_2=1.0, save=True, file_name='random_data_matrix.npy'):
-    x_1 = np.random.normal(mu_1, sigma_1, 20)
-    y_1 = np.random.normal(mu_1, sigma_1, 20)
+def create_random_2d_dataset_2classes(mu_1=1.0, sigma_1=2.0, mu_2=4.0, sigma_2=1.0, save=True,
+                                      file_name='random_data_matrix.npy', n_per_class=20):
+    x_1 = np.random.normal(mu_1, sigma_1, n_per_class)
+    y_1 = np.random.normal(mu_1, sigma_1, n_per_class)
 
-    x_2 = np.random.normal(mu_2, sigma_2, 20)
-    y_2 = np.random.normal(mu_2, sigma_2, 20)
+    x_2 = np.random.normal(mu_2, sigma_2, n_per_class)
+    y_2 = np.random.normal(mu_2, sigma_2, n_per_class)
 
     data_1 = np.hstack((x_1.reshape(-1, 1), y_1.reshape(-1, 1)))
     data_2 = np.hstack((x_2.reshape(-1, 1), y_2.reshape(-1, 1)))
@@ -18,15 +19,16 @@ def create_random_2d_dataset_2classes(mu_1=1.0, sigma_1=2.0, mu_2=4.0, sigma_2=1
     return random_data_matrix
 
 
-def create_random_2d_dataset_3classes(mu_1=1.0, sigma_1=2.0, mu_2=4.0, sigma_2=1.0, mu_3=-1.0, sigma_3=2.0, save=True, file_name='random_data_matrix_3_classes.npy'):
-    x_1 = np.random.normal(mu_1, sigma_1, 20)
-    y_1 = np.random.normal(mu_1, sigma_1, 20)
+def create_random_2d_dataset_3classes(mu_1=1.0, sigma_1=4.0, mu_2=5.0, sigma_2=4.0, mu_3=-1.0, sigma_3=3.0, save=True,
+                                      file_name='random_data_matrix_3_classes.npy', n_per_class=20):
+    x_1 = np.random.normal(mu_1, sigma_1, n_per_class)
+    y_1 = np.random.normal(mu_1, sigma_1, n_per_class)
 
-    x_2 = np.random.normal(mu_2, sigma_2, 20)
-    y_2 = np.random.normal(mu_2, sigma_2, 20)
+    x_2 = np.random.normal(mu_2, sigma_2, n_per_class)
+    y_2 = np.random.normal(mu_2, sigma_2, n_per_class)
     
-    x_3 = np.random.normal(mu_3, sigma_3, 20)
-    y_3 = np.random.normal(mu_3, sigma_3, 20)
+    x_3 = np.random.normal(mu_3, sigma_3, n_per_class)
+    y_3 = np.random.normal(mu_3, sigma_3, n_per_class)
     
     data_1 = np.hstack((x_1.reshape(-1, 1), y_1.reshape(-1, 1)))
     data_2 = np.hstack((x_2.reshape(-1, 1), y_2.reshape(-1, 1)))
