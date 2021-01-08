@@ -1,5 +1,6 @@
 import numpy as np
 from sklearn.metrics import f1_score, accuracy_score, precision_score, recall_score
+import matplotlib.pyplot as plt
 
 
 def compute_metric_components(y_true, y_preds, c_label):
@@ -60,6 +61,44 @@ def f1_score_impl(y_true, y_preds, average=None, pos_label=1):
         return results[np.where(n_classes == pos_label)[0]][0]
     else:
         return results
+
+
+# function adapted from
+# https://github.com/Bennri/view-on-machine-learning/blob/master/visualization-decision-surfaces/helpers.py
+def create_plot(data, labels, clf, title='Your Title',
+                legend_loc='upper left', colormap='YlGnBu',
+                alpha=0.6, figur_size=(20, 15), steps=0.1,
+                label_feature_1='feature 1', label_feature_2='feature 2'):
+    x = data[:,0]
+    y = data[:,1]
+    classes = np.unique(labels)
+    n_classes = len(np.unique(labels))
+
+    labels_axis = ['class ' + str(c) for c in classes.astype(np.int)]
+
+    cm = plt.cm.get_cmap(colormap, n_classes)
+    x_min = x.min() - 2
+    x_max = x.max() + 2
+    y_min = y.min() - 2
+    y_max = y.max() + 2
+    XX, YY = np.meshgrid(np.arange(x_min, x_max, steps), np.arange(y_min, y_max, steps))
+    # prediction for each point in the meshgrid
+    Z = clf.predict(np.c_[XX.ravel(), YY.ravel()])
+    # reshape for the grid
+    Z = Z.reshape(XX.shape)
+
+    plt.figure(figsize=figur_size)
+    # contour plot
+    plt.contourf(XX, YY, Z, cmap=plt.cm.get_cmap(colormap), alpha=alpha)
+    
+    for i in range(n_classes):
+        curr_class_data = data[np.where(labels==classes[i])[0].tolist()]
+        plt.scatter(curr_class_data[:,0], curr_class_data[:,1], c=np.array([cm(i)]), label=labels_axis[i])
+    plt.xlabel(label_feature_1)
+    plt.ylabel(label_feature_2)
+    plt.legend()
+    plt.title(title)
+    plt.show()
 
 
 if __name__ == '__main__':
