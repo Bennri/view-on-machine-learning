@@ -18,13 +18,13 @@ class SimpleNeuralNetwork:
     def _backpropagation(self):
 
         delta_2 = (self.y - self.output) * sigmoid_derivative(np.matmul(self.layer_1, self.weights_2))
-        gradient_2 = 2 * np.dot(self.layer_1.T, delta_2)
+        gradient_2 = -2 * np.dot(self.layer_1.T, delta_2)
 
         delta_1 = np.dot(delta_2, self.weights_2.T) * sigmoid_derivative(np.matmul(self.x, self.weights_1))
-        gradient_1 = 2 * np.dot(self.x.T, delta_1)
+        gradient_1 = -2 * np.dot(self.x.T, delta_1)
 
-        self.weights_1 += self.lr * gradient_1
-        self.weights_2 += self.lr * gradient_2
+        self.weights_1 -= self.lr * gradient_1
+        self.weights_2 -= self.lr * gradient_2
 
     def _forwardpropagation(self):
         self.layer_1 = sigmoid(np.matmul(self.x, self.weights_1))
@@ -61,17 +61,17 @@ class NeuralNetwork:
 
     def _backpropagation(self):
         delta_3 = (self.y - self.output) * sigmoid_derivative(np.matmul(self.layer_2, self.weights_3))
-        gradient_3 = 2 * np.dot(self.layer_2.T, delta_3)
+        gradient_3 = -2 * np.dot(self.layer_2.T, delta_3)
 
         delta_2 = np.dot(delta_3, self.weights_3.T) * sigmoid_derivative(np.matmul(self.layer_1, self.weights_2))
-        gradient_2 = 2 * np.dot(self.layer_1.T, delta_2)
+        gradient_2 = -2 * np.dot(self.layer_1.T, delta_2)
 
         delta_1 = np.dot(delta_2, self.weights_2.T) * sigmoid_derivative(np.matmul(self.x, self.weights_1))
-        gradient_1 = 2 * np.dot(self.x.T, delta_1)
+        gradient_1 = -2 * np.dot(self.x.T, delta_1)
 
-        self.weights_1 += self.lr * gradient_1
-        self.weights_2 += self.lr * gradient_2
-        self.weights_3 += self.lr * gradient_3
+        self.weights_1 -= self.lr * gradient_1
+        self.weights_2 -= self.lr * gradient_2
+        self.weights_3 -= self.lr * gradient_3
 
     def _forward_propagation(self):
         self.layer_1 = sigmoid(np.matmul(self.x, self.weights_1))
